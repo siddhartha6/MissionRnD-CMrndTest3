@@ -36,6 +36,18 @@ struct node{
 	struct node *right;
 };
 
+int tree_length(struct node* root)
+{
+	if (root == NULL)
+		return 0;
+	else
+		return(tree_length(root->left) + tree_length(root->right) + 1);
+}
 void merge_two_bst(struct node *root1, struct node *root2){
+	if (root1 == NULL || root2 == NULL)
+		return;
+	int t1_len = tree_length(root1);
+	int t2_len = tree_length(root2);
 	
+
 }

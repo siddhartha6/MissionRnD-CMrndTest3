@@ -50,7 +50,25 @@ struct node{
 	struct node *right;
 };
 
+int missing_value(struct node *root, int *sum){
+	if (root == NULL)
+		return -1;
 
+	if (root->data!=0)
+		(*sum) =(*sum)- root->data;
+	
+	return missing_value(root->left, sum) + missing_value(root->right, sum);
+	
+
+}
 int get_missing_value(struct node *root,int n){
-    return -1;
+	if (root == NULL || n == 0)
+	     return -1;
+
+	int *sum = (int *)calloc(1, sizeof(int));
+
+	*sum = (n * (n + 1)) / 2;
+
+	missing_value(root, sum);
+	return (*sum);
 }

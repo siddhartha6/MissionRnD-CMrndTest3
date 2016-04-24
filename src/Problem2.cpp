@@ -71,6 +71,45 @@ struct node{
 	struct node *right;
 };
 
+int dll_length(struct node_dll *head)
+{
+	struct node_dll *temp = head;
+	int len = 0;
+	while(temp!=NULL)
+	{
+		temp = temp->next;
+		len++;
+	}
+	return len;
+}
+
+void inorder_traversal(struct node *root, int *arr, int *index){
+	if (root != NULL)
+	{
+		inorder_traversal(root->left, arr, index);
+		*index = *index + 1;
+		arr[*index] = root->data;
+		inorder_traversal(root->right, arr, index);
+	}
+}
+
+
 int is_identical(struct node_dll *head, struct node *root){
-	return -1;
+	if (head==NULL || root==NULL)
+	       return -1;
+
+	int *arr = (int *)malloc(20*sizeof(int));
+	int index = -1;
+	inorder_traversal(root, arr, &index);
+	int res = 0, index1 = 0;
+	while (head)
+	{
+		if ((head->data) == arr[index1])
+			res = 1;
+		else
+			res = 0;
+		head = head->next;
+		index1++;
+	}
+	return res;
 }

@@ -62,18 +62,65 @@ struct enode{
 Helper Functions are optional to write 
 */
 //Helper Functions Start
-int isOperator(char *data){
+int isOperator(char data){
+	if (data == '+' || data == '-' || data == '*')
+		return 1;
+}  
+int isOperand(char data){
+	if (data != '+' && data != '-' && data != '*')
 	return 0;
 }
-int isOperand(char *data){
-	return 0;
-}
-int getOperand(char *data){
-	//converts data string to an integer "123" => 123
-	return 0;
+int getOperand(char data){
+	
+	return data-'0';
 }
 //Helper Functions end
+
+
+void inorder_traversal(struct enode *root,char *arr, int *index){
+	if (root != NULL)
+	{
+		inorder_traversal(root->left, arr, index);
+		*index = *index + 1;
+		arr[*index] = root->data[*index];
+		inorder_traversal(root->right, arr, index);
+	}
+}
 int solve_tree(struct enode *root){
-    return -1;
+	if (root==NULL)
+         return -1;
+	int index = -1;
+	char *str = (char *)malloc(sizeof(char));;
+	inorder_traversal(root,str, &index);
+	int len = 0,num=0;
+	for (len = 0; str[len] != 0; len++) {
+
+		if (str[len + 1] != '\0')
+			len = len + 1;
+	}
+
+	for (int i = 0; i < len; i++)
+	{
+		if (isOperand(str[i]))
+		{
+			num = getOperand(str[i]);
+		}
+		if (isOperator(str[i]))
+		{
+			if (isOperand(str[i + 1]))
+			{
+
+				if (str[i] == '+')
+					num += str[i + 1] - '0';
+				if (str[i] == '-')
+					num -= str[i + 1] - '0';
+				if (str[i] == '*')
+					num *= str[i + 1] - '0';
+				i = i + 1;
+			}
+		}
+
+	} 
+	return num;
 }
 
