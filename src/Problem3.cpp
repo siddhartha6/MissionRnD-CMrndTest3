@@ -67,8 +67,8 @@ int isOperator(char data){
 		return 1;
 }  
 int isOperand(char data){
-	if (data != '+' && data != '-' && data != '*')
-	return 0;
+	if (data >=60 && data <= 71)
+	      return 1;
 }
 int getOperand(char data){
 	
@@ -118,6 +118,7 @@ int solve_tree(struct enode *root){
 					num *= str[i + 1] - '0';
 				i = i + 1;
 			}
+			//i = i + 1;
 		}
 
 	} 
