@@ -76,13 +76,13 @@ int getOperand(char data){
 }
 //Helper Functions end
 
-
+int index1 = 0;
 void inorder_traversal(struct enode *root,char *arr, int *index){
 	if (root != NULL)
 	{
 		inorder_traversal(root->left, arr, index);
 		*index = *index + 1;
-		arr[*index] = root->data[*index];
+		arr[*index] = root->data[index1];
 		inorder_traversal(root->right, arr, index);
 	}
 }
